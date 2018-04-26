@@ -29,6 +29,9 @@ git@github.com:test/test.git
 将本地创库和git创库链接：git remote add origin git@github.com:test/test.git
 将本地代码上传到服务器：git push -u origin master
 
+设置远端仓库地址 git remote set-url origin 你的远端地址
+
+
 5.使用https　方式上传　不用配秘钥
 
 进入自己项目的根目录：cd $project_root
@@ -46,6 +49,23 @@ $ git commit -m "init"
 On branch master
 nothing to commit, working tree clean
 没有任何修改，不用提交
+
+$ git push -u origin master
+
+ERROR: Repository not found.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+设置远端仓库地址 git remote set-url origin 你的远端地址
+
+设置远程地址：（上面新建的）
+git remote add origin_new 新的地址
+git remote –v查看
+git push origin_new master重新推送 
+
+
 
 1.提交注释的时候提示一下信息。
 $ git commit * -m "fixed issue #123"
