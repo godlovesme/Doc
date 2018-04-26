@@ -1,0 +1,218 @@
+window git 的使用
+
+配置
+
+git config --global user.name "myname"
+
+git config --global user.email "123456@qq.com"
+
+
+1.创建本地git的公钥和私钥 ~/.ssh/id_rsa和~/.ssh/id_rsa.pub密钥对。
+ssh-keygen -t rsa -C "123456@qq.com"
+
+2.将生成的公钥信息保存到服务器中。在面板上依次点击Profile Settings –> SSH Keys –> Add SSH Keys。然后把上一步中的id_rsa.pub中的内容拷贝出来粘贴到输入框中，保存。
+
+3.检测是否成功  ssh git@github.com  
+
+You've successfully authenticated, but GitHub does not provide shell access.
+Connection to github.com closed.
+
+4.使用ssh 方式上传
+
+git@github.com:test/test.git
+
+进入自己项目的根目录：cd $project_root
+初始化自己的创库：git init 
+拉取代码：git pull git@github.com:test/test.git
+添加文件到本地创库：  git add .
+添加本次提交的注释：  git commit -m "init commit"
+将本地创库和git创库链接：git remote add origin git@github.com:test/test.git
+将本地代码上传到服务器：git push -u origin master
+
+5.使用https　方式上传　不用配秘钥
+
+进入自己项目的根目录：cd $project_root
+初始化自己的创库：git init 
+拉取代码：git pull https://github.com/test/test.git
+添加文件到本地创库：  git add .
+添加本次提交的注释：  git commit -m "init commit"
+将本地创库和git创库链接：git remote add origin https://github.com/test/test.git
+将本地代码上传到服务器：git push -u origin master
+
+
+可能遇见的出问题：
+
+$ git commit -m "init"
+On branch master
+nothing to commit, working tree clean
+没有任何修改，不用提交
+
+1.提交注释的时候提示一下信息。
+$ git commit * -m "fixed issue #123"
+error: pathspec 'composer' did not match any file(s) known to git.
+error: pathspec 'composer.lock' did not match any file(s) known to git.
+error: pathspec 'vendor' did not match any file(s) known to git.
+
+解决方法：git rm -r --cached .
+
+2.在提交信息到git服务器的时候，提示：
+error:src refspec master does not match any
+
+原因是提交的信息是空，解决办法：查看你自己的当前分支是不是有值
+
+
+相关命令
+
+1. 删除文件(删除工作区的文件)
+
+$ rm test.txt
+
+彻底删除文件，同时删除版本库里的文件
+
+$ rm <filename>
+$ git rm <filename>
+$ git commit -m "deleted a file"
+$ git push -u origin master
+
+
+2. 撤销修改(已经提交到仓库)
+
+如果已经将修改提交到仓库了，而要撤销这次修改，需要分三步完成：
+
+第一步：返回到上一版本库，使用命令 git reset --hard HEAD^ ；
+
+第二步：撤销暂存区里的修改，使用命令 git reset HEAD 1.txt ；
+
+第三步：撤销工作区里的修改，使用命令 git checkout -- 1.txt 。
+
+
+【mater 分支】
+
+1. 查看所有分支
+
+git branch --all  
+# 默认只有master分支，所以会看到如下两个分支
+# master[本地主分支] origin/master[远程主分支]
+# 新克隆下来的代码默认master和origin/master是关联的，也就是他们的代码保持同步
+
+2. 创建本地新的v1分支
+
+git branch v1  # 创建本地分支
+git branch  # 查看分支
+# 这是会看到master和v1，而且master上会有一个星号
+# 这个时候v1是一个本地分支，远程仓库不知道它的存在
+# 本地分支可以不同步到远程仓库，我们可以在v1开发，然后merge到master，使用master同步代码，当然也可以同步
+
+3. 发布v1分支   会把当前的代码作为分支
+发布v1分支指的是同步v1分支的代码到远程服务器
+
+git push origin v1:v1 # 这样远程仓库也有一个v1分支了
+
+
+5. 在v1分支开发代码
+
+git checkout v1  # 切换到v1分支进行开发
+# 开发代码之后，我们有两个选择
+
+# 第一个：如果功能开发完成了，可以合并主分支
+git checkout master  # 切换到主分支
+git merge v1  # 把v1分支的更改和master合并
+git add .
+git commit -m "合并"
+git push --set-upstream origin master  # 提交主分支代码远程
+git checkout v1  # 切换到v1远程分支
+git push --set-upstream origin v1 # 提交v1分支到远程
+
+# 第二个：如果功能没有完成，可以直接推送
+git push --set-upstream origin v1  # 提交到v1远程分支
+# 注意：在分支切换之前最好先commit全部的改变，除非你真的知道自己在做什么
+
+
+删除本地branch：git branch -d/D [branchName] (大写的D可以强制删除branch)
+例子：git branch -d alpha或git branch -D alpha
+
+删除远端branch：git push origin :[branchName] 注意：“:” 前面要有空格
+例子：git push origin :alpha 
+
+
+相关命令
+
+一、 创建test分支提交步骤  
+1.列出所有分支  
+# git branch -a  
+  
+2.创建test分支           
+# git branch test  
+  
+3.切换到test分支:              
+# git checkout test  
+4.添加add修改:  
+# git add .  
+  
+5.添加commit注释  
+# git commit -m "第一次提交代码"  
+  
+6.提交到服务器  
+# git push origin test   
+  
+二、将test分支合并到master本地分支  
+1.创建test分支  
+# git branch test  
+  
+2.切换到test分支  
+# git checkout test  
+  
+3.在test分支添加一个readme.txt文件  
+# touch readme.txt  
+# git add readme.txt  
+  
+4.提交commit本地文件  
+# git commit -m “增加readme.txt”  
+  
+5.切换到master分支  
+# git checkout master  
+  
+6.把test分支合并到master分支  
+# git merge test  
+  
+7.提交master分支到服务器  
+# git push origin master  
+  
+8.删除test分支  
+# git branch -d test  
+
+
+【tag 标签】
+
+1.列出标签
+$ git tag # 在控制台打印出当前仓库的所有标签
+$ git tag -l ‘v0.1.*’ # 搜索符合模式的标签
+
+2.创建标签
+tag的名字和master名字要区分，要不然提交会有歧义
+# 创建轻量标签
+$ git tag v0.1.2-light
+
+# 创建附注标签
+$ git tag -a v0.1.2 -m “0.1.2版本”
+
+3.切换到标签
+与切换分支命令相同，用git checkout [tagname]
+查看标签信息
+用git show命令可以查看标签的版本信息：
+$ git show v0.1.2
+
+4.删除标签
+
+本地
+误打或需要修改标签时，需要先将标签删除，再打新标签。
+$ git tag -d v0.1.2 # 删除标签
+
+远程
+git push origin :refs/tags/v1.0.1
+
+
+5.标签发布
+通常的git push不会将标签对象提交到git服务器，我们需要进行显式的操作：
+$ git push origin v0.1.2 # 将v0.1.2标签提交到git服务器
+$ git push origin –tags # 将本地所有标签一次性提交到git服务器
