@@ -18,7 +18,7 @@ You've successfully authenticated, but GitHub does not provide shell access.
 Connection to github.com closed.
 
 4.使用ssh 方式上传
-
+ 
 git@github.com:test/test.git
 
 进入自己项目的根目录：cd $project_root
