@@ -1,0 +1,69 @@
+中间件
+
+zookeeper
+
+mycat-web
+
+mycat 分表分库 http://www.mycat.io/
+
+
+zookeeper win 安装
+
+https://blog.csdn.net/tlk20071/article/details/52028945
+
+	下载
+	https://mirrors.cnnic.cn/apache/zookeeper/stable/
+
+	修改zoo_sample.cfg 文件名为 zoo.cfg
+
+	案例
+	    # The number of milliseconds of each tick  
+	    tickTime=2000  
+	    # The number of ticks that the initial   
+	    # synchronization phase can take  
+	    initLimit=10  
+	    # The number of ticks that can pass between   
+	    # sending a request and getting an acknowledgement  
+	    syncLimit=5  
+	    # the directory where the snapshot is stored.  
+	    # do not use /tmp for storage, /tmp here is just   
+	    # example sakes.  
+	    dataDir=D:\\zookeeper\\data  
+	    dataLogDir=D:\\zookeeper\\log  
+	    # the port at which the clients will connect  
+	    clientPort=2181  
+	    # the maximum number of client connections.  
+	    # increase this if you need to handle more clients  
+	    #maxClientCnxns=60  
+	    #  
+	    # Be sure to read the maintenance section of the   
+	    # administrator guide before turning on autopurge.  
+	    #  
+	    # http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance  
+	    #  
+	    # The number of snapshots to retain in dataDir  
+	    #autopurge.snapRetainCount=3  
+	    # Purge task interval in hours  
+	    # Set to "0" to disable auto purge feature  
+	    #autopurge.purgeInterval=1  
+
+	zkServer.cmd 启动服务
+
+mycat , mycat-web win 安装
+
+https://www.cnblogs.com/zuidongfeng/p/7793351.html
+
+下载
+Mycat-web-1.0-SNAPSHOT-20160617163048-win.zip
+修改  将mycat-web\mycat-web\WEB-INF\classes\ mycat.properties 配置文件中zookeeper改为如下：
+zookeeper=127.0.0.1:2181
+
+启动 start.bat
+
+http://localhost:8082/mycat
+
+mycat 使用 
+
+https://www.cnblogs.com/zuidongfeng/p/7793098.html
+https://blog.csdn.net/wu6660563/article/details/70313351
+
