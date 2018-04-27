@@ -1,0 +1,59 @@
+消息队列
+
+active mq 
+
+jdk mq 对比
+https://blog.csdn.net/yanfeipei/article/details/75267384
+
+apache-activemq-5.14.0 	1.7.0_80 	1.7+
+apache-activemq-5.15.0 	1.8.0_112 	1.8+
+
+java version "1.7.0_80"
+apache-activemq-5.14.0
+
+安装 win
+https://blog.csdn.net/clj198606061111/article/details/38145597
+https://www.cnblogs.com/hushaojun/p/6016709.html
+
+安装 linux
+https://www.cnblogs.com/shamo89/p/7645651.html
+
+ActiveMQ默认启动到8161端口，
+http://localhost:8161/admin
+用户名密码，默认用户名密码为admin、admin，
+
+用户名，密码在：jetty-realm.properties中设置
+
+
+php 扩展 stomp
+
+http://pecl.php.net/package/stomp
+
+php_stomp-1.0.9-5.4-ts-vc9-x86.zip
+
+
+stomp 简介
+
+https://www.jianshu.com/p/cee941ca0c09
+
+关于active mq 的介绍
+
+点对点： （queue）
+
+	每个消息只能有一个消费者。  
+
+	消息的生产者和消费者之间没有时间上的相关性。无论消费者在生产者发
+	送消息的时候是否处于运行状态，它都可以提取消息。 
+
+
+发布/订阅： （topic）
+
+	每个消息可以有多个消费者。  
+
+	生产者和消费者之间有时间上的相关性。订阅一个主题的消费者只能消费
+	自它订阅之后发布的消息。JMS 规范允许客户创建持久订阅，这在一定程
+	度上放松了时间上的相关性要求。持久订阅允许消费者消费它在未处于激
+	活状态时发送的消息。 
+
+Stomp协议学习与实战
+http://diaocow.iteye.com/blog/1725186
