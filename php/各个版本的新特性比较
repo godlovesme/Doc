@@ -1,0 +1,91 @@
+PHP 5.3.0 提供了广泛的新特性:
+
+	添加了命名空间的支持.
+	添加了静态晚绑定支持.
+	添加了跳标签支持.
+	添加了原生的闭包(Lambda/匿名函数)支持.
+	新增了两个魔术方法, __callStatic 和 __invoke.
+	添加了 Nowdoc 语法支持, 类似于 Heredoc 语法, 但是包含单引号.
+	使用 Heredoc 来初始化静态变量和类属性/常量变为可能.
+	可使用双引号声明 Heredoc, 补充了 Nowdoc 语法.
+	可在类外部使用 const 关键词声明 常量.
+	三元运算操作符有了简写形式: ?:.
+	HTTP 流包裹器将从 200 到 399 全部的状态码都视为成功。
+	动态访问静态方法变为可能.
+	异常可以被内嵌.
+	新增了循环引用的垃圾回收器并且默认是开启的.
+	mail() 现在支持邮件发送日志. (注意: 仅支持通过该函数发送的邮件.)
+
+
+PHP 5.4.0 提供了丰富的新特性：
+
+	新增支持 traits 。
+	新增短数组语法，比如 $a = [1, 2, 3, 4]; 或 $a = ['one' => 1, 'two' => 2, 'three' => 3, 'four' => 4]; 。
+	新增支持对函数返回数组的成员访问解析，例如 foo()[0] 。
+	现在 闭包 支持 $this 。
+	现在不管是否设置 short_open_tag php.ini 选项，<?= 将总是可用。
+	新增在实例化时访问类成员，例如： (new Foo)->bar() 。
+	现在支持 Class::{expr}() 语法。
+	新增二进制直接量，例如：0b001001101 。
+	改进解析错误信息和不兼容参数的警告。
+	SESSION 扩展现在能追踪文件的 上传进度 。
+	内置用于开发的 CLI 模式的 web server 。
+
+PHP 5.5.0 提供了丰富的新特性：
+
+	foreach 现在支持 list()
+	empty() 支持任意表达式
+	废弃 ext/mysql 可使用 MySQLi 或 PDO_MySQL 扩展作为替代。
+
+PHP 5.6.0 提供了丰富的新特性：
+	
+	使用表达式定义常量
+
+		const ONE = 1;
+		const TWO = ONE * 2;
+
+	const 关键字来定义类型为 array 的常量。 
+
+		const ARR = ['a', 'b'];
+
+
+PHP 7.0.0 提供了丰富的新特性：
+
+	标量类型声明
+		字符串(string), 整数 (int), 浮点数 (float), 以及布尔值 (bool)。
+		它们扩充了PHP5中引入的其他类型：类名，接口，数组和 回调类型。 
+	返回值类型声明
+	null合并运算符
+		$username = $_GET['user'] ?? 'nobody';
+	太空船操作符（组合比较符）
+		echo 1 <=> 1; // 0
+		echo 1 <=> 2; // -1
+		echo 2 <=> 1; // 1
+	通过 define() 定义常量数组 
+		define('ANIMALS', [
+		    'dog',
+		    'cat',
+		    'bird'
+		]);
+	匿名类
+		$app = new Application;
+		$app->setLogger(new class implements Logger {
+		    public function log(string $msg) {
+		        echo $msg;
+		    }
+		});
+	Unicode codepoint 转译语法
+	Group use declarations
+		// PHP 7 之前的代码
+		use some\namespace\ClassA;
+		use some\namespace\ClassB;
+		use some\namespace\ClassC as C;
+		// PHP 7+ 及更高版本的代码
+		use some\namespace\{ClassA, ClassB, ClassC as C};
+	会话选项
+		PHP 会在读取完会话数据之后， 立即关闭会话存储文件，不做任何修改，可以通过设置 read_and_close 来实现。 
+		session_start([
+		    'cache_limiter' => 'private',
+		    'read_and_close' => true,
+		]);
+
