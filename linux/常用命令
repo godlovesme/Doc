@@ -1,0 +1,21 @@
+1.linux 内存清理/释放命令
+
+
+0 – 不释放
+1 – 释放页缓存
+2 – 释放dentries和inodes
+3 – 释放所有缓存
+
+a.清理前内存使用情况 
+free -m
+
+b.开始清理  
+echo 1 > /proc/sys/vm/drop_caches
+
+c.清理后内存使用情况 
+free -m
+
+d.完成!
+
+2.查看linux 系统
+more /proc/version
