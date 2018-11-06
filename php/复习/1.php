@@ -78,7 +78,7 @@ EOT;
 
 Nowdoc 结构 不解析
 
-echo <<<EOT
+echo <<<'EOT'
 123456789
 abcdefghi
 $abc
