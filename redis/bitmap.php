@@ -26,7 +26,6 @@
 
 // bitcount 0 0 那么就应该是第一个字节中1的数量的
 
-
 /*1.统计用登陆或活跃人数*/
 
 $redis = new Redis();
@@ -38,7 +37,7 @@ $key = 'user|login|2018-05-01';
 $redis->setbit($key,$uid,1);
 //获取
 $res = $redis->getbit($key,$uid);
-// var_dump($res);
+
 //那天登陆人数
 $that_day_num = $redis->bitcount($key);
 // var_dump($that_day_num);

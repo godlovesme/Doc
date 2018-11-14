@@ -1,0 +1,223 @@
+<?php
+
+
+数据结构
+
+https://www.cnblogs.com/glory-jzx/archive/2012/04/25/2469163.html
+
+--队列  先进先出
+
+是一种线性表
+
+按照先进先出的原则进行
+
+单向队列：只能从头进，从尾出
+
+双向队列：头尾都可以进出
+
+class Deque{
+
+	private $queue=array();
+	
+	function addFirst($item){//头入队
+		return array_unshift($this->queue,$item);
+	}
+	function addLast($item){//尾入队
+		return array_push($this->queue,$item);
+	}
+	function removeFirst(){//头出队
+		return array_shift($this->queue);
+	}
+	function removeLast(){//尾出队
+		return array_pop($this->queue);
+	}
+	function show(){//显示
+		echo implode(" ",$this->queue);
+	}
+	function clear(){//清空
+		unset($this->queue);
+	}
+	function getFirst(){
+		return array_shift($this->queue);
+	}
+	function getLast(){
+		return array_pop($this->queue);
+	}
+	function getLength(){
+		return count($this->queue);
+	}
+}
+
+/*$q=new Deque();
+$q->addFirst(1);
+$q->addLast(5);
+$q->removeFirst();
+$q->removeLast();
+$q->addFirst(2);
+$q->addLast(4);
+$q->show();
+*/
+
+--链表
+
+链表本质上就是一种数据结构，主要用来动态放置数据。也可用来构建许多数据结构，比如堆栈、队列及它们的派生。
+
+
+1、单向链表的实现
+
+（1）单向链表的创建过程：
+
+第一步：定义节点的数据结构；
+
+第二步：创建一个空表。
+
+第三步：利用malloc（）向系统申请分配一个节点。
+
+第四步：将新节点的指针成员赋值为空。若是空表，将新节点连接到表头；若是非空表，将新节点连接到表尾。
+
+第五步：判断是否有后续节点，如有则转入第三步，否则结束。
+
+
+class Node{
+    public $data = '';
+    public $next = null;
+    function __construct($data)
+    {
+        $this->data = $data;
+    }
+}
+
+
+// 增加节点
+function addNode($head, $data){
+     $cur = $head;
+     while(!is_null($cur->next)){
+         $cur = $cur->next;
+     }
+     $new = new Node($data);
+     $cur->next = $new;
+ 
+}
+
+// 链表有几个元素
+function countNode($head){
+     $cur = $head;
+     $i = 0;
+     while(!is_null($cur->next)){
+         ++$i;
+         $cur = $cur->next;
+     }
+     return $i;
+}
+ 
+// 紧接着添加在$no后
+function insertNode($head, $data, $no){
+	if ($no > countNode($head)){
+		return false;
+	}
+	$cur = $head;
+	$new = new Node($data);
+	for($i=0; $i<$no;$i++){
+		$cur = $cur->next;
+	}
+	$new->next = $cur->next;
+	$cur->next = $new;
+ 
+}
+
+// 删除第$no个节点
+function delNode($head, $no){
+	if ($no > countNode($head)){
+	 	return false;
+	}
+	$cur = $head;
+	for($i=0; $i<$no-1; $i++){
+	 	$cur = $cur->next;
+	}
+	$cur->next = $cur->next->next;
+
+}
+ 
+// 遍历链表
+function showNode($head){
+	var_dump($head);
+	$cur = $head;
+	while(!is_null($cur->next)){
+		$cur = $cur->next;
+		echo $cur->data, '<br/>';
+	}
+}
+
+
+/*$head = new Node(null);
+addNode($head, 'a');
+addNode($head, 'b');
+addNode($head, 'c');
+insertNode($head, 'd', 0);
+showNode($head);
+delNode($head, 2);
+showNode($head);
+*/
+
+2.双链表
+
+双链表是一种重要的线性存储结构，对于双链表中的每个节点，
+不仅仅存储自己的信息，还要保存前驱和后继节点的地址。
+
+
+
+//用于迭代
+interface  Iterator extends Traversable {
+	/* Methods */
+	abstract public mixed current ( void )
+	abstract public scalar key ( void )
+	abstract public void next ( void )
+	abstract public void rewind ( void )
+	abstract public boolean valid ( void )
+}
+
+// 像数组一样访问
+interface  ArrayAccess {
+    abstract public offsetExists ($offset)  //检查偏移位置是否存在
+    abstract public offsetGet ($offset)     //获取一个偏移位置的值
+    abstract public void offsetSet ($offset ,$value) //设置一个偏移位置的值
+    abstract public void offsetUnset ($offset)       //复位一个偏移位置的值
+}
+
+// 用于 count()
+interface Countable {
+    /* 方法 */
+    abstract public int count ( void )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
