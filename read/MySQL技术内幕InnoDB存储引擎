@@ -213,17 +213,140 @@ Btree 树  分为【
 	聚集索引 （按照每张表的主键 造一棵树，每张表只能有一个） 
 	每个数据页通过一个 双向链表 来链接，查询优化倾向于该表，主键查询非常快
 
-	辅助索引  （非聚集索引）
+	辅助索引  （非聚集索引）叶子节点不包括行记录全部数据
 
 	都是高度平衡的
 】
 
 
+树的管理
+
+ALTER TABLE tbl_name ADD/DROP {INDEX|UNIQUE|PRIMARY KEY} (index_name)
+
+查看索引
+
+show index from tbl_name
+
+优化表
+analyze tbl_name
+
+
 全文索引
+
+全文检索  通常使用 倒排索引 来实现
+
 
 
 
 哈希索引
+
+
+sql 强制索引
+
+//不一定使用C 索引
+select * from t use index(C) where C= 1 and b=2
+
+//使用C 索引
+select * from t force index(C) where C= 1 and b=2
+
+
+第六章 锁
+
+InnoDB 在 行级 加锁，在操作 缓冲池 LRU 列表，删除，添加，移动列表中的元素，为了保证一致，必须有锁的介入
+
+
+lock (事务锁) 
+
+表，页，行
+
+commit  
+rollback
+
+有死锁机制
+
+
+latch (閂shuan 锁 ，轻量级锁) { 互斥量(mutex)，读写锁(rwlock) }
+
+用来保证 并发线程操作临界资源的正确性，通常没有死锁检测的机制
+
+
+       		lock  		 			latch
+对象		事务 					线程
+保护 		数据库内容    			内存数据结构
+持续时间	整个事务过程    		临界资源
+模式		行锁，表锁，意向锁  	读写锁，互斥量
+死锁 		通过waits-for graph 	通过加锁的顺序
+			time out 等机制进行		不能保证无死锁
+			死锁检测
+存在于		lock manager 			每个数据结构的对象中
+			的 哈希表中
+
+
+
+lock 行级锁
+
+共享锁 ( S Lock ) 允许事务读一行
+
+排他锁 ( X Lock ) 允许事务删除或更新一行数据
+
+意向锁 ( Intention Lock ) 更细粒度 加上锁
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
